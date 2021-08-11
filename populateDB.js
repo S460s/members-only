@@ -75,12 +75,12 @@ mongoose
 		debug('Connected');
 		await populateUsers();
 		await populateMessages();
-		mongoose.connection.close();
 		debug('Done');
-		debug('Dissconected');
 	})
 	.catch((err) => {
-		console.log(err.message);
+		debug(err.message);
+	})
+	.finally(() => {
 		mongoose.connection.close();
 		debug('Dissconected');
 	});
