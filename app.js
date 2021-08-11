@@ -7,6 +7,7 @@ const morgan = require('morgan');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ mongoose
 	.connect(process.env.DB_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		useCreateIndex: true,
 	})
 	.then(() => {
 		debug('Connected to DB.');
@@ -27,3 +29,7 @@ mongoose
 	});
 
 app.use(morgan('dev'));
+
+app.get('/', (req, res) => {
+	res.send('Hello');
+});
