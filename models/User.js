@@ -19,6 +19,10 @@ const UserSchema = new Schema({
 		required: [true, 'Please enter a password.'],
 		minlength: [6, 'Minimum password length is 6 characters.'],
 	},
+	status: {
+		type: String,
+		enum: ['admin', 'unknown', 'user'],
+	},
 });
 
 UserSchema.virtual('fullname').get(function () {
