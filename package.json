@@ -4,8 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon app.js",
-		"start": "node app.js"
+		"dev": "export DEBUG=myapp && nodemon app.js",
+		"start": "node app.js",
+		"populate": "export DEBUG=populate && node populateDB.js"
 	},
 	"repository": {
 		"type": "git",
