@@ -25,7 +25,7 @@ mongoose
 		});
 	})
 	.catch((err) => {
-		console.log(err);
+		debug(err);
 	});
 
 app.set('view engine', 'pug');

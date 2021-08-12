@@ -24,7 +24,7 @@ include layouts/header
     .d-grid.col-6.mx-auto 
       button.btn.btn-primary(type="submit") Submit
 
-  if errors.length
+  if errors
     -- console.log(errors)
     for error in errors 
       .alert.alert-danger #{error.msg}

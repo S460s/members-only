@@ -1,8 +1,17 @@
 const { body, validationResult } = require('express-validator');
 const debug = require('debug')('myapp');
 const User = require('../models/User');
+const Message = require('../models/Message');
 
-const home = (req, res) => res.render('home', { title: 'Home' });
+const home = async (req, res) => {
+	try {
+		const messages = await Message.find({}).populate('author');
+		res.render('home', { title: 'Home', messages });
+	} catch (err) {
+		debug(err);
+		res.send('Internal error.');
+	}
+};
 const about = (req, res) => res.render('about', { title: 'About' });
 
 const inputValidation = [
@@ -36,7 +45,8 @@ const inputValidation = [
 	}),
 ];
 
-const signup_get = (req, res) => res.render('signup', { title: 'Sign Up' });
+const signup_get = (req, res) =>
+	res.render('signup', { title: 'Sign Up', info: {} });
 const singup_post = [
 	...inputValidation,
 	async (req, res) => {
