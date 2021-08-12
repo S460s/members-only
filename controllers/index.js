@@ -49,6 +49,7 @@ const inputValidationSignUp = [
 const signup_get = (req, res) => {
 	res.render('signup', { title: 'Sign Up', info: {} });
 };
+
 const singup_post = [
 	...inputValidationSignUp,
 	async (req, res, next) => {
@@ -105,6 +106,13 @@ const inputValidationMessage = [
 const message_post = [
 	...inputValidationMessage,
 	async (req, res) => {
+		if (!errors.isEmpty()) {
+			return res.status(400).render('signup', {
+				title: 'Add Message',
+				errors: errors.array(),
+				info: req.body,
+			});
+		}
 		const message = new Message({ ...req.body, author: req.user._id });
 		await message.save();
 		res.redirect('/');
@@ -114,6 +122,31 @@ const message_post = [
 const clubhouse_get = (req, res) => {
 	res.render('clubhouse', { title: 'Clubhouse Verification' });
 };
+
+const clubhouse_post = [
+	body('clubhousePswd')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Password is required')
+		.escape()
+		.custom((value) => {
+			if (value !== process.env.CLUBHOUSE_PASSWORD) {
+				throw new Error('Password does not match clubhouse password.');
+			} else return true;
+		}),
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).render('clubhouse', {
+				title: 'Clubhouse Verification',
+				errors: errors.array(),
+			});
+		}
+
+		await User.findByIdAndUpdate(req.user._id, { status: 'member' });
+		res.redirect('/');
+	},
+];
 
 const logout_get =
 	('/logout',
@@ -133,4 +166,5 @@ module.exports = {
 	message_get,
 	message_post,
 	clubhouse_get,
+	clubhouse_post,
 };

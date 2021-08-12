@@ -11,6 +11,7 @@ const {
 	message_get,
 	message_post,
 	clubhouse_get,
+	clubhouse_post,
 } = require('../controllers');
 
 const router = express.Router();
@@ -28,6 +29,7 @@ router.get('/message', isAuth, message_get);
 router.post('/message', isAuth, message_post);
 
 router.get('/clubhouse', isAuth, clubhouse_get);
+router.post('/clubhouse', clubhouse_post);
 
 router.get('/logout', logout_get);
 

@@ -21,7 +21,7 @@ const UserSchema = new Schema({
 	},
 	status: {
 		type: String,
-		enum: ['admin', 'unknown', 'user'],
+		enum: ['admin', 'unknown', 'member'],
 		default: 'unknown',
 	},
 });
