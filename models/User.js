@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const { isEmail } = require('validator');
-
+const bcrypt = require('bcrypt');
 const UserSchema = new Schema({
 	firstname: {
 		type: String,
@@ -28,6 +28,12 @@ const UserSchema = new Schema({
 
 UserSchema.virtual('fullname').get(function () {
 	return `${this.firstname} ${this.lastname}`;
+});
+
+UserSchema.pre('save', async function (next) {
+	const salt = await bcrypt.genSalt();
+	this.password = await bcrypt.hash(this.password, salt);
+	next();
 });
 
 const User = model('user', UserSchema);
