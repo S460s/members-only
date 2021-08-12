@@ -12,6 +12,8 @@ include layouts/header.pug
         h5.card-title.text-capitalize #{message.title}
         h6.card-subtitle.mb-2.text-muted Author: #{currentUser? message.author.fullname : 'unknown'}
         p.card-text #{message.text}
+        if currentUser.status === 'admin'
+          a(href=`/message/:${message._id}`).btn.btn-danger Delete Message
       .card-footer.text-muted Created: #{currentUser? message.createdAt : 'unknown'}
   else 
     p.text-info There are no messages

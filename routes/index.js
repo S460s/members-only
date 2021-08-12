@@ -13,6 +13,7 @@ const {
 	clubhouse_get,
 	clubhouse_post,
 	admin_get,
+	admin_post,
 } = require('../controllers');
 
 const router = express.Router();
@@ -33,6 +34,7 @@ router.get('/clubhouse', isAuth, clubhouse_get);
 router.post('/clubhouse', clubhouse_post);
 
 router.get('/admin', isAuth, admin_get);
+router.post('/admin', admin_post);
 
 router.get('/logout', logout_get);
 
