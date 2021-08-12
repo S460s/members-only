@@ -74,4 +74,11 @@ const singup_post = [
 	}),
 ];
 
-module.exports = { home, about, signup_get, singup_post };
+const logout_get =
+	('/logout',
+	(req, res) => {
+		req.logout();
+		res.redirect('/');
+	});
+
+module.exports = { home, about, signup_get, singup_post, logout_get };
