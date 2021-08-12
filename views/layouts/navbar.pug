@@ -9,7 +9,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           a.nav-link(aria-current='page' href='/') Home
         li.nav-item
           a.nav-link(href='/about') About
-        if currentUser 
+        if currentUser.status 
           li.nav-item
             a.nav-link(href='/logout') Log out
           li.nav-item
