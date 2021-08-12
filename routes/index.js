@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get('/', home);
 router.get('/about', about);
-router.get('/signup', signup_get);
 
-router;
+router.get('/signup', signup_get);
 
 module.exports = router;
