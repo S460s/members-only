@@ -29,6 +29,16 @@ const inputValidation = [
 ];
 
 const signup_get = (req, res) => res.render('signup', { title: 'Sign Up' });
-const singup_post = (req, res) => {};
+const singup_post = [
+	...inputValidation,
+	(req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res
+				.status(400)
+				.render('signup', { title: 'Sign Up', errors: errors.array() });
+		}
+	},
+];
 
-module.exports = { home, about, signup_get };
+module.exports = { home, about, signup_get, singup_post };
