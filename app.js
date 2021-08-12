@@ -7,7 +7,7 @@ const morgan = require('morgan');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./models/User');
+const router = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,8 +28,10 @@ mongoose
 		console.log(err);
 	});
 
-app.use(morgan('dev'));
+app.set('view engine', 'pug');
 
-app.get('/', (req, res) => {
-	res.send('Hello');
-});
+app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+app.use(router);

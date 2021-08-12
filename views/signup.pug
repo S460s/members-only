@@ -1,0 +1,29 @@
+include layouts/header
+
+
+.container
+  h1.h1.pt-3.pb-3 #{title}
+  form(action="", method="POST").shadow.p-3.mb-5.bg-body.rounded
+    .mb-3 
+      label(for="firstname").form-label First Name
+      input#firstname.form-control(type="text" name="firstname" placeholder="Winston" required)
+    .mb-3 
+      label(for='lastname').form-label Last Name
+      input#lastname.form-control(type="text" name="lastname" placeholder="Smith" required)
+    .mb-3 
+      label(for="email").form-label Email
+      input#email.form-control(type="email" name="email" placeholder="w1nston@gmail.com" required)
+    .mb-3 
+      label(for="password").form-label Password 
+      input#password.form-control(type="password" name="password" required placeholder='Password')
+      .form-text Your password must be at least 6 characters long.
+    .mb-3 
+      label(for="cnfrmpassword").form-label Confirm Password 
+      input#cnfrmpassword.form-control(type="password" name="cnfrmpassword" required placeholder='Password')
+    .d-grid.col-6.mx-auto 
+      button.btn.btn-primary(type="submit") Submit
+
+  if errors.length
+    -- console.log(errors)
+    for error in errors 
+      .alert.alert-danger #{error.msg}
