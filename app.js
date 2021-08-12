@@ -76,7 +76,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-	debug('user', req.user.fullname);
+	debug('user', req.user);
 	debug('is authenticated', req.isAuthenticated());
 	next();
 });

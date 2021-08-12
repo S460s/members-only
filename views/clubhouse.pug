@@ -2,13 +2,12 @@ include layouts/header
 
 .container
   h1.h1.pt-3.pb-3 #{title}
+  p.text-muted Enter the clubhouse password to get access to who and when wrote a message.
   form(method="POST").shadow.p-3.mb-5.bg-body.rounded
     .mb-3 
-      label(for="title").form-label Title
-      input#title.form-control(type="text" name="title" placeholder="Discord Update" required)
-    .mb-3 
-      label(for="text").form-label Text 
-      textarea#text.form-control(type="text" name="text" required placeholder='lorem ipsum')
+      label(for="password").form-label Password
+      input#password.form-control(type="password"  name="clubhousePswd" placeholder="Password" required)
+
     .d-grid.col-6.mx-auto 
       button.btn.btn-primary(type="submit") Submit
 
