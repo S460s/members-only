@@ -148,6 +148,10 @@ const clubhouse_post = [
 	},
 ];
 
+const admin_get = (req, res) => {
+	res.render('adminForm', { title: 'Admin Verification' });
+};
+
 const logout_get =
 	('/logout',
 	(req, res) => {
@@ -167,4 +171,5 @@ module.exports = {
 	message_post,
 	clubhouse_get,
 	clubhouse_post,
+	admin_get,
 };

@@ -1,0 +1,17 @@
+include layouts/header
+
+.container
+  h1.h1.pt-3.pb-3 #{title}
+  p.text-muted Enter the admin password to get full access.
+  form(method="POST").shadow.p-3.mb-5.bg-body.rounded
+    .mb-3 
+      label(for="password").form-label Password
+      input#password.form-control(type="password"  name="adminPswd" placeholder="Password" required)
+
+    .d-grid.col-6.mx-auto 
+      button.btn.btn-primary(type="submit") Submit
+
+  if errors
+    -- console.log(errors)
+    for error in errors 
+      .alert.alert-danger #{error.msg}
