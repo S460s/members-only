@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const debug = require('debug')('myapp');
 const User = require('../models/User');
 
 const home = (req, res) => res.render('home', { title: 'Home' });
@@ -38,13 +39,22 @@ const inputValidation = [
 const signup_get = (req, res) => res.render('signup', { title: 'Sign Up' });
 const singup_post = [
 	...inputValidation,
-	(req, res) => {
+	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res
-				.status(400)
-				.render('signup', { title: 'Sign Up', errors: errors.array() });
+			return res.status(400).render('signup', {
+				title: 'Sign Up',
+				errors: errors.array(),
+				info: req.body,
+			});
 		}
+		const newUser = User(req.body);
+		try {
+			await newUser.save();
+		} catch (err) {
+			debug(err);
+		}
+		res.redirect('/');
 	},
 ];
 
