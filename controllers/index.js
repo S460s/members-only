@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const debug = require('debug')('myapp');
 const User = require('../models/User');
 const Message = require('../models/Message');
+const passport = require('passport');
 
 const home = async (req, res) => {
 	try {
@@ -49,7 +50,7 @@ const signup_get = (req, res) =>
 	res.render('signup', { title: 'Sign Up', info: {} });
 const singup_post = [
 	...inputValidation,
-	async (req, res) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(400).render('signup', {
@@ -64,8 +65,13 @@ const singup_post = [
 		} catch (err) {
 			debug(err);
 		}
-		res.redirect('/');
+		console.log(req.body);
+		next();
 	},
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/about',
+	}),
 ];
 
 module.exports = { home, about, signup_get, singup_post };

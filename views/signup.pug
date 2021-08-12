@@ -5,7 +5,6 @@ include layouts/header
   h1.h1.pt-3.pb-3 #{title}
   form(action="", method="POST").shadow.p-3.mb-5.bg-body.rounded
     .mb-3 
-      -- console.log(info)
       label(for="firstname").form-label First Name
       input#firstname.form-control(type="text" value=info.firstname name="firstname" placeholder="Winston" required)
     .mb-3 
