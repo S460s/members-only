@@ -9,7 +9,15 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           a.nav-link(aria-current='page' href='/') Home
         li.nav-item
           a.nav-link(href='/about') About
-        li.nav-item
-          a.nav-link(href='/signup') Sign up
-        li.nav-item
-          a.nav-link(href='#') Log in
+        if currentUser 
+          li.nav-item
+            a.nav-link(href='/logout') Log out
+          li.nav-item
+            a.nav-link(href='#') Add message
+          li.nav-item
+            a.nav-link(href='#') Join Clubhouse
+        else 
+          li.nav-item
+            a.nav-link(href='/signup') Sign up
+          li.nav-item
+            a.nav-link(href='#') Log in

@@ -66,4 +66,9 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(function (req, res, next) {
+	res.locals.currentUser = req.user;
+	next();
+});
+
 app.use(router);

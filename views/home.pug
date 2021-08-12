@@ -1,7 +1,11 @@
 include layouts/header.pug
 
 .container 
-  h2.m-1 Home
+  if currentUser
+    h2.m-1 Welcome #{currentUser.fullname} !
+  else 
+    h2.m-1 Home
+    
   each message in messages 
     .card.mt-3
       .card-body
