@@ -1,5 +1,5 @@
 const express = require('express');
-const isAuth = require('../config/authMiddleware');
+const { isAuth, isAdmin } = require('../config/authMiddleware');
 const {
 	home,
 	about,
@@ -14,6 +14,7 @@ const {
 	clubhouse_post,
 	admin_get,
 	admin_post,
+	delete_message,
 } = require('../controllers');
 
 const router = express.Router();
@@ -36,6 +37,7 @@ router.post('/clubhouse', clubhouse_post);
 router.get('/admin', isAuth, admin_get);
 router.post('/admin', admin_post);
 
+router.get('/message/:id', isAdmin, delete_message);
 router.get('/logout', logout_get);
 
 module.exports = router;

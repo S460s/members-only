@@ -177,6 +177,11 @@ const admin_post = [
 	},
 ];
 
+const delete_message = async (req, res) => {
+	await Message.findByIdAndDelete(req.params.id);
+	res.redirect('/');
+};
+
 const logout_get =
 	('/logout',
 	(req, res) => {
@@ -198,4 +203,5 @@ module.exports = {
 	clubhouse_post,
 	admin_get,
 	admin_post,
+	delete_message,
 };

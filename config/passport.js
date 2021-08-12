@@ -18,7 +18,6 @@ const customFields = {
 const verifyCallback = async (email, password, done) => {
 	try {
 		const user = await User.findOne({ email });
-		console.log(!user);
 		if (!user) return done(null, false, { message: 'Incorrect email.' });
 		if (!verifyPassword(password, user.password)) {
 			return done(null, false, { message: 'Incorrect password.' });

@@ -8,4 +8,14 @@ const isAuth = (req, res, next) => {
 	}
 };
 
-module.exports = isAuth;
+const isAdmin = (req, res, next) => {
+	if (req.isAuthenticated() || req.user.status === 'admin') {
+		next();
+	} else {
+		res
+			.status(401)
+			.json({ msg: 'You are not authorized to view this resource.' });
+	}
+};
+
+module.exports = { isAuth, isAdmin };
