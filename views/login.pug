@@ -1,0 +1,18 @@
+include layouts/header
+
+.container
+  h1.h1.pt-3.pb-3 #{title}
+  form(action="", method="POST").shadow.p-3.mb-5.bg-body.rounded
+    .mb-3 
+      label(for="email").form-label Email
+      input#email.form-control(type="email" name="email" placeholder="w1nston@gmail.com" required)
+    .mb-3 
+      label(for="password").form-label Password 
+      input#password.form-control(type="password" name="password" required placeholder='Password')
+    .d-grid.col-6.mx-auto 
+      button.btn.btn-primary(type="submit") Submit
+
+  if errors
+    -- console.log(errors)
+    for error in errors 
+      .alert.alert-danger #{error.msg}

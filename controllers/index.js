@@ -79,7 +79,11 @@ const login_get = (req, res) => {
 	res.render('login', { title: 'Log in' });
 };
 
-const login_post = (req, res) => {};
+const login_post = passport.authenticate('local', {
+	successRedirect: '/',
+	failureRedirect: '/login',
+	failureFlash: true,
+});
 
 const logout_get =
 	('/logout',
@@ -95,4 +99,5 @@ module.exports = {
 	singup_post,
 	logout_get,
 	login_get,
+	login_post,
 };
