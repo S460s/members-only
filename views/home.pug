@@ -1,4 +1,17 @@
 include layouts/header.pug
-h1 Home 
-h2 Welcome to members only
-a(href="/signup") sign up
+
+.container 
+  if currentUser
+    h2.m-1 Welcome #{currentUser.fullname} !
+  else 
+    h2.m-1 Home
+    
+  each message in messages 
+    .card.mt-3
+      .card-body
+        h5.card-title.text-capitalize #{message.title}
+        h6.card-subtitle.mb-2.text-muted Author: #{'unknown'}
+        p.card-text #{message.text}
+      .card-footer.text-muted Created: #{'unknown'}
+  else 
+    p.text-info There are no messages

@@ -8,7 +8,9 @@ const MessageSchema = new Schema(
 			type: String,
 			required: [true, 'Please enter text for the title.'],
 		},
-		author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+		author: { type: Schema.Types.ObjectId, ref: 'user', required: true },
+		createdAt: { type: String },
+		updatedAt: { type: String },
 	},
 	{
 		timestamps: {
@@ -19,5 +21,4 @@ const MessageSchema = new Schema(
 	}
 );
 
-const Message = model('Message', MessageSchema);
-module.exports = Message;
+module.exports = model('Message', MessageSchema);

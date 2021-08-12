@@ -1,10 +1,21 @@
 const { body, validationResult } = require('express-validator');
+const debug = require('debug')('myapp');
 const User = require('../models/User');
+const Message = require('../models/Message');
+const passport = require('passport');
 
-const home = (req, res) => res.render('home', { title: 'Home' });
+const home = async (req, res) => {
+	try {
+		const messages = await Message.find({}).populate('author');
+		res.render('home', { title: 'Home', messages });
+	} catch (err) {
+		debug(err);
+		res.send('Internal error.');
+	}
+};
 const about = (req, res) => res.render('about', { title: 'About' });
 
-const inputValidation = [
+const inputValidationSignUp = [
 	body('firstname', 'First name is requied')
 		.trim()
 		.isLength({ min: 1 })
@@ -35,17 +46,58 @@ const inputValidation = [
 	}),
 ];
 
-const signup_get = (req, res) => res.render('signup', { title: 'Sign Up' });
+const signup_get = (req, res) => {
+	res.render('signup', { title: 'Sign Up', info: {} });
+};
 const singup_post = [
-	...inputValidation,
-	(req, res) => {
+	...inputValidationSignUp,
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-			return res
-				.status(400)
-				.render('signup', { title: 'Sign Up', errors: errors.array() });
+			return res.status(400).render('signup', {
+				title: 'Sign Up',
+				errors: errors.array(),
+				info: req.body,
+			});
 		}
+		const newUser = User(req.body);
+		try {
+			await newUser.save();
+		} catch (err) {
+			debug(err);
+		}
+		console.log(req.body);
+		next();
 	},
+	passport.authenticate('local', {
+		successRedirect: '/',
+		failureRedirect: '/about',
+	}),
 ];
 
-module.exports = { home, about, signup_get, singup_post };
+const login_get = (req, res) => {
+	res.render('login', { title: 'Log in' });
+};
+
+const login_post = passport.authenticate('local', {
+	successRedirect: '/',
+	failureRedirect: '/login',
+	failureFlash: true,
+});
+
+const logout_get =
+	('/logout',
+	(req, res) => {
+		req.logout();
+		res.redirect('/');
+	});
+
+module.exports = {
+	home,
+	about,
+	signup_get,
+	singup_post,
+	logout_get,
+	login_get,
+	login_post,
+};
