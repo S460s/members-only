@@ -1,8 +1,12 @@
 {
 	"name": "members-only",
 	"version": "1.0.0",
+	"engines": {
+		"node": "v14.15.5"
+	},
+	"private": "true",
 	"description": "",
-	"main": "index.js",
+	"main": "app.js",
 	"scripts": {
 		"dev": "export DEBUG=myapp && nodemon app.js",
 		"start": "node app.js",

@@ -82,7 +82,7 @@ app.use((req, res, next) => {
 });
 
 app.use(function (req, res, next) {
-	res.locals.currentUser = req.user;
+	res.locals.currentUser = req.user || {};
 	next();
 });
 
