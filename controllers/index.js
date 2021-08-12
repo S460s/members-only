@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const User = require('../models/User');
 
 const home = (req, res) => res.render('home', { title: 'Home' });
 const about = (req, res) => res.render('about', { title: 'About' });
@@ -15,7 +16,13 @@ const inputValidation = [
 		.withMessage('Email is required')
 		.escape()
 		.isEmail()
-		.withMessage('Invalid email.'),
+		.withMessage('Invalid email.')
+		.custom(async (value, { req }) => {
+			const user = await User.findOne({ email: value });
+			if (user) {
+				throw new Error(`A user with this email (${value}) already exists.`);
+			} else return true;
+		}),
 	body('password')
 		.trim()
 		.isLength({ min: 6 })
