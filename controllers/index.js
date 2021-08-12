@@ -15,7 +15,7 @@ const home = async (req, res) => {
 };
 const about = (req, res) => res.render('about', { title: 'About' });
 
-const inputValidation = [
+const inputValidationSignUp = [
 	body('firstname', 'First name is requied')
 		.trim()
 		.isLength({ min: 1 })
@@ -46,10 +46,11 @@ const inputValidation = [
 	}),
 ];
 
-const signup_get = (req, res) =>
+const signup_get = (req, res) => {
 	res.render('signup', { title: 'Sign Up', info: {} });
+};
 const singup_post = [
-	...inputValidation,
+	...inputValidationSignUp,
 	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
@@ -74,6 +75,12 @@ const singup_post = [
 	}),
 ];
 
+const login_get = (req, res) => {
+	res.render('login', { title: 'Log in' });
+};
+
+const login_post = (req, res) => {};
+
 const logout_get =
 	('/logout',
 	(req, res) => {
@@ -81,4 +88,11 @@ const logout_get =
 		res.redirect('/');
 	});
 
-module.exports = { home, about, signup_get, singup_post, logout_get };
+module.exports = {
+	home,
+	about,
+	signup_get,
+	singup_post,
+	logout_get,
+	login_get,
+};
