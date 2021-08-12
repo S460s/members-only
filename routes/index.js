@@ -1,4 +1,5 @@
 const express = require('express');
+const isAuth = require('../config/authMiddleware');
 const {
 	home,
 	about,
@@ -7,6 +8,8 @@ const {
 	logout_get,
 	login_get,
 	login_post,
+	message_get,
+	message_post,
 } = require('../controllers');
 
 const router = express.Router();
@@ -19,6 +22,9 @@ router.post('/signup', singup_post);
 
 router.get('/login', login_get);
 router.post('/login', login_post);
+
+router.get('/message', isAuth, message_get);
+router.post('/message', isAuth, message_post);
 
 router.get('/logout', logout_get);
 
