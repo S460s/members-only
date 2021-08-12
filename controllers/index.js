@@ -111,6 +111,10 @@ const message_post = [
 	},
 ];
 
+const clubhouse_get = (req, res) => {
+	res.render('clubhouse', { title: 'Clubhouse Verification' });
+};
+
 const logout_get =
 	('/logout',
 	(req, res) => {
@@ -128,4 +132,5 @@ module.exports = {
 	login_post,
 	message_get,
 	message_post,
+	clubhouse_get,
 };

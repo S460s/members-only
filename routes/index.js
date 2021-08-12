@@ -10,6 +10,7 @@ const {
 	login_post,
 	message_get,
 	message_post,
+	clubhouse_get,
 } = require('../controllers');
 
 const router = express.Router();
@@ -25,6 +26,8 @@ router.post('/login', login_post);
 
 router.get('/message', isAuth, message_get);
 router.post('/message', isAuth, message_post);
+
+router.get('/clubhouse', isAuth, clubhouse_get);
 
 router.get('/logout', logout_get);
 
