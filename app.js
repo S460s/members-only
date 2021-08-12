@@ -4,16 +4,18 @@ if (process.env.NODE_ENV !== 'production') {
 
 const debug = require('debug')('myapp');
 const morgan = require('morgan');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const express = require('express');
-const session = require('express-session');
 
 const mongoose = require('mongoose');
-
-const router = require('./routes');
 const MongoStore = require('connect-mongo');
+
+const session = require('express-session');
 const passport = require('passport');
 
+const router = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -38,6 +40,19 @@ app.set('view engine', 'pug');
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
+app.use(compression());
+app.use(
+	helmet({
+		contentSecurityPolicy: {
+			useDefaults: true,
+			directives: {
+				'script-src':
+					'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js',
+			},
+		},
+	})
+);
 
 const sessionStore = new MongoStore({
 	mongoUrl: process.env.DB_URI,
