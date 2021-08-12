@@ -1,10 +1,11 @@
 const express = require('express');
-const { home, about } = require('../controllers');
+const { home, about, signup_get } = require('../controllers');
 
 const router = express.Router();
 
 router.get('/', home);
 router.get('/about', about);
+router.get('/signup', signup_get);
 
 router;
 
