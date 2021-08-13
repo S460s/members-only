@@ -19,6 +19,7 @@ const flash = require('connect-flash');
 const homeRouter = require('./routes');
 const messageRouter = require('./routes/message');
 const clubhouseRouter = require('./routes/clubhouse');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -93,4 +94,5 @@ app.use(function (req, res, next) {
 
 app.use('/message', messageRouter);
 app.use('/clubhouse', clubhouseRouter);
+app.use('/admin', adminRouter);
 app.use(homeRouter);
