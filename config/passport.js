@@ -6,7 +6,7 @@ const User = require('../models/User');
 
 const verifyPassword = async (password, hashPassword) => {
 	const result = await bcrypt.compare(password, hashPassword);
-	console.log(result);
+	console.log('PASSWORD', result);
 	return result;
 };
 
@@ -19,7 +19,8 @@ const verifyCallback = async (email, password, done) => {
 	try {
 		const user = await User.findOne({ email });
 		if (!user) return done(null, false, { message: 'Incorrect email.' });
-		if (!verifyPassword(password, user.password)) {
+		const flag = await verifyPassword(password, user.password);
+		if (!flag) {
 			return done(null, false, { message: 'Incorrect password.' });
 		}
 		return done(null, user);
