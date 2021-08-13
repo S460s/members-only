@@ -14,6 +14,7 @@ const MongoStore = require('connect-mongo');
 
 const session = require('express-session');
 const passport = require('passport');
+const flash = require('connect-flash');
 
 const router = require('./routes');
 const app = express();
@@ -59,6 +60,8 @@ const sessionStore = new MongoStore({
 	collectionName: 'sessions',
 });
 
+app.use(flash());
+
 app.use(
 	session({
 		secret: process.env.SECRET,
@@ -76,7 +79,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-	debug('user', req.user);
 	debug('is authenticated', req.isAuthenticated());
 	next();
 });

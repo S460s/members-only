@@ -77,7 +77,10 @@ const singup_post = [
 ];
 
 const login_get = (req, res) => {
-	res.render('login', { title: 'Log in' });
+	res.render('login', {
+		title: 'Log in',
+		flash: req.flash(),
+	});
 };
 
 const login_post = passport.authenticate('local', {
