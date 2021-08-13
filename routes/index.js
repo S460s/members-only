@@ -8,8 +8,6 @@ const {
 	logout_get,
 	login_get,
 	login_post,
-	clubhouse_get,
-	clubhouse_post,
 	admin_get,
 	admin_post,
 } = require('../controllers');
@@ -24,9 +22,6 @@ router.post('/signup', singup_post);
 
 router.get('/login', login_get);
 router.post('/login', login_post);
-
-router.get('/clubhouse', isAuth, clubhouse_get);
-router.post('/clubhouse', clubhouse_post);
 
 router.get('/admin', isAuth, admin_get);
 router.post('/admin', admin_post);
