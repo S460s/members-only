@@ -6,7 +6,6 @@ const User = require('../models/User');
 
 const verifyPassword = async (password, hashPassword) => {
 	const result = await bcrypt.compare(password, hashPassword);
-	console.log('PASSWORD', result);
 	return result;
 };
 
