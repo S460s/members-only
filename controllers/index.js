@@ -67,7 +67,6 @@ const singup_post = [
 		} catch (err) {
 			debug(err);
 		}
-		console.log(req.body);
 		next();
 	},
 	passport.authenticate('local', {
@@ -88,40 +87,6 @@ const login_post = passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true,
 });
-
-const message_get = (req, res) => {
-	res.render('messageForm', { title: 'Add Message' });
-};
-
-const inputValidationMessage = [
-	body('title')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('Title is required')
-		.escape(),
-	body('text')
-		.trim()
-		.isLength({ min: 1 })
-		.withMessage('Text is required.')
-		.escape(),
-];
-
-const message_post = [
-	...inputValidationMessage,
-	async (req, res) => {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(400).render('signup', {
-				title: 'Add Message',
-				errors: errors.array(),
-				info: req.body,
-			});
-		}
-		const message = new Message({ ...req.body, author: req.user._id });
-		await message.save();
-		res.redirect('/');
-	},
-];
 
 const clubhouse_get = (req, res) => {
 	res.render('clubhouse', { title: 'Clubhouse Verification' });
@@ -181,11 +146,6 @@ const admin_post = [
 	},
 ];
 
-const delete_message = async (req, res) => {
-	await Message.findByIdAndDelete(req.params.id);
-	res.redirect('/');
-};
-
 const logout_get =
 	('/logout',
 	(req, res) => {
@@ -201,11 +161,8 @@ module.exports = {
 	logout_get,
 	login_get,
 	login_post,
-	message_get,
-	message_post,
 	clubhouse_get,
 	clubhouse_post,
 	admin_get,
 	admin_post,
-	delete_message,
 };

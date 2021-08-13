@@ -16,7 +16,9 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 
-const router = require('./routes');
+const homeRouter = require('./routes');
+const messageRouter = require('./routes/message');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -88,4 +90,5 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(router);
+app.use('/message', messageRouter);
+app.use(homeRouter);
